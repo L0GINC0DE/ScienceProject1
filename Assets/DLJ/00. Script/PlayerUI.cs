@@ -1,10 +1,13 @@
 using System;
+using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] private Image PlayerMainUI;
+    [SerializeField] private Image playerMainUI;
+    [SerializeField] private Ease easeCurve;
 
     private void OnEnable()
     {
@@ -18,6 +21,6 @@ public class PlayerUI : MonoBehaviour
 
     public void ShowUI()
     {
-        //PlayerMainUI
+        playerMainUI.transform.DOLocalMoveY(playerMainUI.rectTransform.anchoredPosition.y + 75f, 0.18f).SetEase(easeCurve);
     }
 }
