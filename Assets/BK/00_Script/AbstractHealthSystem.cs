@@ -3,27 +3,36 @@ using UnityEngine;
 
 public abstract class AbstractHealthSystem:MonoBehaviour
 {
-    private int health = 100;
+    private int _health = 100;
     public int Health
     {
-        get {return health;}
+        get {return _health;}
         private set
         {
-            health = value;
-            if (health <= 0)
+            _health = value;
+            if (_health <= 0)
             {
-                health = 0;
+                _health = 0;
+                OnDead?.Invoke();
             }
         } 
     }
     public Action<int>OnDamaged;
     public Action<int> OnHeal;
+    public Action OnDead;
 
     private void OnEnable()
     {
         OnDamaged += Damage;
         
         OnHeal += Heal;
+
+        OnDead += Dead;
+    }
+
+    public void SetHealth(int health)
+    {
+        _health = health;
     }
 
     public virtual void Damage(int damage)
@@ -34,5 +43,10 @@ public abstract class AbstractHealthSystem:MonoBehaviour
     public virtual void Heal(int heal)
     {
         Health += heal;
+    }
+
+    public virtual void Dead()
+    {
+        Destroy(gameObject);
     }
 }
