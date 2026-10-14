@@ -19,6 +19,6 @@ public class PlayerAct : PlayerButton, IButtonAction
     private void Act()
     {
         PlayerAnimation anim = player.GetComponentInChildren<PlayerAnimation>();
-        anim.SetBoolAnimation("Act", true);
+        anim.SetTriggerAnimation("Act");
     }
 }

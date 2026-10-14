@@ -1,4 +1,4 @@
-interface IButtonAction
+public interface IButtonAction
 {
     void OnClick();
 }

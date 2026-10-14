@@ -14,4 +14,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetBool(animationName, torf);
     }
+    
+    public void SetTriggerAnimation(string animationName)
+    {
+        animator.SetTrigger(animationName);
+    }
 }

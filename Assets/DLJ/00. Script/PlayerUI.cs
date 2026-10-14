@@ -8,6 +8,7 @@ public class PlayerUI : MonoBehaviour
 {
     [SerializeField] private Image playerMainUI;
     [SerializeField] private Ease easeCurve;
+    [SerializeField] private Slider slider;
 
     private void OnEnable()
     {
@@ -22,5 +23,10 @@ public class PlayerUI : MonoBehaviour
     public void ShowUI()
     {
         playerMainUI.transform.DOLocalMoveY(playerMainUI.rectTransform.anchoredPosition.y + 75f, 0.18f).SetEase(easeCurve);
+    }
+    
+    public void SetSlider(int health)
+    {
+        slider.value = health;
     }
 }

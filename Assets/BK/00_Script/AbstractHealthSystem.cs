@@ -21,7 +21,7 @@ public abstract class AbstractHealthSystem:MonoBehaviour
     public Action<int> OnHeal;
     public Action OnDead;
 
-    private void OnEnable()
+    public virtual void OnEnable()
     {
         OnDamaged += Damage;
         
@@ -47,6 +47,6 @@ public abstract class AbstractHealthSystem:MonoBehaviour
 
     public virtual void Dead()
     {
-        Destroy(gameObject);
+        
     }
 }

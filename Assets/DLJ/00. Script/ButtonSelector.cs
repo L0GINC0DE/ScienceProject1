@@ -7,21 +7,23 @@ public class ButtonSelector : MonoBehaviour
 {
     [SerializeField] private GameObject indicator;
     [SerializeField] private List<GameObject> buttons;
+    [SerializeField] private Player player;
+    
     
     private List<Vector2> btnPositions = new();
     [SerializeField] private int currentIndex = 0;
-
-    private void Start()
-    {
-        for (int i = 0; i < 2; i++)
-        {
-            btnPositions.Add(buttons[i].transform.position);
-        }
-    }
+    
 
     private void Update()
     {
         if (TurnManager.Instance.CurrentTurnState != TurnState.PlayerTurn) return;
+        
+        btnPositions.Clear();
+        
+        for (int i = 0; i < 2; i++)
+        {
+            btnPositions.Add(buttons[i].transform.position);
+        }
         
         if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
         {
@@ -37,12 +39,12 @@ public class ButtonSelector : MonoBehaviour
             indicator.transform.position = btnPositions[currentIndex];
         }
         
-        IButtonAction buttonAction = buttons[currentIndex].GetComponent<IButtonAction>();
-
+        PlayerMachine.ChangeState(currentIndex == 0 ? PlayerState.Attack : PlayerState.Act);
+        
         if (Keyboard.current.enterKey.wasPressedThisFrame)
         {
-            buttonAction.OnClick();
-            buttonAction = null;
+            Plusy plusy = player as Plusy;
+            plusy?.playerMachine.Activate(PlayerMachine.CurrentState);
         }
     }
 }
