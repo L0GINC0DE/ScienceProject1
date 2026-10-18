@@ -44,5 +44,11 @@ TagManager:
   - name: Player
     uniqueID: 571337307
     locked: 0
+  - name: Area
+    uniqueID: 1616359075
+    locked: 0
+  - name: IngamePlayer
+    uniqueID: 4108921357
+    locked: 0
   m_RenderingLayers:
   - Default

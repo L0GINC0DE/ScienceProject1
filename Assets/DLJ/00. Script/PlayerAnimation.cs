@@ -19,4 +19,10 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetTrigger(animationName);
     }
+
+    public void NotifyAnimation()
+    {
+        Debug.Log("End", this);
+        TurnManager.Instance.CompleteAction();
+    }
 }

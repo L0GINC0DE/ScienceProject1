@@ -2,33 +2,29 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum PlayerTag
+{
+    Plusy,
+    Minusy
+}
+
 public class PlayerHealth : AbstractHealthSystem
 {
     [SerializeField] private PlayerUI playerUI;
+    [SerializeField] private PlayerTag playerTag;
+    
     private void Start()
     {
         SetHealth(100);
     }
 
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        
-        OnDamaged += playerUI.SetSlider;
-    }
-
     private void Update()
     {
-        playerUI.SetSlider(Health);
+        playerUI.SetSlider(playerTag, Health);
 
         if (Keyboard.current.hKey.wasPressedThisFrame)
         {
             OnDamaged?.Invoke(10);
         }
-    }
-
-    private void OnDisable()
-    {
-        OnDamaged -= playerUI.SetSlider;
     }
 }

@@ -12,14 +12,14 @@ public class PlayerMachine
 {
     private Dictionary<PlayerState, IButtonAction> playerDict  = new();
 
-    public static PlayerState CurrentState { get; private set; }
+    public PlayerState CurrentState { get; private set; }
 
     public void AddPlayer(PlayerState state, IButtonAction button)
     {
         playerDict.Add(state, button);
     }
 
-    public static void ChangeState(PlayerState state)
+    public void ChangeState(PlayerState state)
     {
         CurrentState = state;
     }

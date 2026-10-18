@@ -11,7 +11,8 @@ public class PlayerAttack : PlayerButton, IButtonAction
     private Transform targetPos;
     private Vector2 basePos;
 
-
+    private Sequence attackSequence;
+    
     public PlayerAttack(Player player, Transform target) : base(player, target)
     {
         this.player = player;
@@ -29,13 +30,13 @@ public class PlayerAttack : PlayerButton, IButtonAction
         PlayerAnimation anim = player.GetComponentInChildren<PlayerAnimation>();
         anim.SetBoolAnimation("Attack", true);
 
-        DOTween.KillAll();
+        attackSequence.Kill();
         
-        Sequence attackSequence = DOTween.Sequence();
+        attackSequence = DOTween.Sequence();
         attackSequence.Append(player.transform.DOJump(target.transform.position, 2.3f, 1, 1.2f)).SetEase(Ease.OutSine)
             .AppendInterval(0.1f)
             .Append(player.transform.DOJump(basePos, 1.3f, 1, 0.9f)).SetEase(Ease.OutCirc)
-            .Append(player.transform.DOJump(basePos, 1.5f, 1, 0.5f))
-            .JoinCallback(() => anim.SetBoolAnimation("Attack", false));
+            .JoinCallback(() => anim.SetBoolAnimation("Attack", false))
+            .AppendCallback(() => TurnManager.Instance.CompleteAction());
     }
 }
