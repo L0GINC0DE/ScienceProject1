@@ -53,5 +53,8 @@ TagManager:
   - name: IngamePlayer
     uniqueID: 4108921357
     locked: 0
+  - name: Boss
+    uniqueID: 3412623063
+    locked: 0
   m_RenderingLayers:
   - Default
