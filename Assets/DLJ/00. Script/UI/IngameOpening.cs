@@ -17,6 +17,11 @@ public class IngameOpening : MonoBehaviour
         ingame.transform.DOScaleX(1, 0.8f);
     }
 
+    public void SetIngameSize(Vector2 size)
+    {
+        ingame.GetComponent<RectTransform>().sizeDelta = size;
+    }
+
     private void DisableIngame()
     {
         ingame.transform.DOScaleX(0, 0.8f);
