@@ -15,6 +15,10 @@ public class QuizPatton : AbstractPatton
   [SerializeField] private GameObject _oBtton;
   [SerializeField]private GameObject _xBtton;
   
+  [SerializeField]private PlayerHealth _player1Health;
+  [SerializeField]private PlayerHealth _player2Health;
+  [SerializeField]private BossHealthSystem _bossHealthSystem;
+  
   private int questionCount = 0;
   
   public string[] questions;
@@ -31,19 +35,24 @@ public class QuizPatton : AbstractPatton
   {
     TurnManager.Instance.OnEnemyTurn += Patton;
   }
+  
 
   public override void Patton() //문제 위로 올라오고 버튼으로 OX결정하는거
   {
     
     base.Patton();
+    SetQuestion();
     
     _oBtton.SetActive(true);
    
     _xBtton.SetActive(true);
     _textUI.gameObject.SetActive(true);
-    _beforBoss.SetActive(false);
+    //_beforBoss.SetActive(false);
+    _beforBoss.transform.DOLocalMoveX(12f,0.5f);
     Sequence seq = DOTween.Sequence();
     seq.Append(gameObject.transform.DOMoveY(1.2f,0.5f));
+    
+    
     
   }
 
@@ -52,30 +61,40 @@ public class QuizPatton : AbstractPatton
     //questionCount = Random.Range(0, questions.Length);
     
     _textUI.text = "정답!!";
-    StartCoroutine(Co());
+    //StartCoroutine(Co());
     Sequence seq = DOTween.Sequence();
    
     _oBtton.SetActive(false);
-    
     _xBtton.SetActive(false);
+    
     seq.Append(gameObject.transform.DOMoveY(-12f,0.5f));
     seq.AppendCallback(() => _textUI.gameObject.SetActive(false));
-    seq.AppendCallback(()=>_beforBoss.SetActive(true));
+    _beforBoss.transform.DOLocalMoveX(5f,0.5f);
+    //seq.AppendCallback(()=>_beforBoss.SetActive(true));
+    
+    _bossHealthSystem.OnDamaged.Invoke(30);
+    
+    
   }
   public void BadAnswer() //대충 오답 나오고 턴 넘어감 플레이어 대미지 줘야함
   {
     //questionCount = Random.Range(0, questions.Length);
     
     _textUI.text = "오답!!!!!!!";
-    StartCoroutine(Co());
+    //StartCoroutine(Co());
     Sequence seq = DOTween.Sequence();
     
     _oBtton.SetActive(false);
-  
     _xBtton.SetActive(false);
+    
     seq.Append(gameObject.transform.DOMoveY(-12f,0.5f));
     seq.AppendCallback(() => _textUI.gameObject.SetActive(false));
-    seq.AppendCallback(()=>_beforBoss.SetActive(true));
+    _beforBoss.transform.DOLocalMoveX(5f,0.5f);
+    //seq.AppendCallback(()=>_beforBoss.SetActive(true));
+    
+    _player1Health.OnDamaged.Invoke(10);
+    _player2Health.OnDamaged.Invoke(10);
+    
   }
 
   public IEnumerator Co() //그냥 기달렸다가 문제 바꾸는 거임.
