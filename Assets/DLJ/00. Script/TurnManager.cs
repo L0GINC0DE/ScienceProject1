@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public enum TurnState
 {
@@ -17,6 +18,8 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance { get; private set; }
 
+    [SerializeField] private string defeatSceneName = "Dead";
+
     public TurnState CurrentTurnState { get; private set; }
     
     public Action OnPlusyTurn;
@@ -27,6 +30,7 @@ public class TurnManager : MonoBehaviour
     private event Action OnExecuteAction;
     private int selectedAction;
     private PlayerHealth[] players;
+    private bool isChangingScene;
 
     private void Awake()
     {
@@ -124,13 +128,16 @@ public class TurnManager : MonoBehaviour
 
     public void NotifyPlayerDefeated(PlayerTag tag)
     {
+        if (isChangingScene) return;
+
         if (!IsPlayerAlive(PlayerTag.Plusy) && !IsPlayerAlive(PlayerTag.Minusy))
         {
-            BossPattonManger manager = BossPattonManger.instance;
-            if (CurrentTurnState == TurnState.EnemyTurn && manager != null && manager.ActivePattern != null)
-                manager.CompleteCurrentPattern(manager.ActivePattern);
-            else
-                BeginPlayerTurn();
+            isChangingScene = true;
+            CurrentTurnState = TurnState.Waiting;
+            OnExecuteAction = null;
+            selectedAction = 0;
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(defeatSceneName);
             return;
         }
 
