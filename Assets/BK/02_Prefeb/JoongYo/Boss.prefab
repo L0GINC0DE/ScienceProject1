@@ -818,7 +818,6 @@ GameObject:
   - component: {fileID: 7234735079483745666}
   - component: {fileID: 9144544965697085750}
   - component: {fileID: 1966663636639075190}
-  - component: {fileID: 2284413488509333671}
   - component: {fileID: 3045183110119231650}
   m_Layer: 0
   m_Name: Boss
@@ -836,7 +835,7 @@ Transform:
   m_GameObject: {fileID: 5364226937251621410}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 4.6314, y: 3.0585, z: 0}
+  m_LocalPosition: {x: 12, y: 3.0585, z: 0}
   m_LocalScale: {x: 0.71716, y: 0.71716, z: 0.71716}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -938,20 +937,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2284413488509333671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5364226937251621410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8b5e6e17058c614b838744d48299a7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TanhwnBalsa
-  _bulletPrefab: {fileID: 3328753938216873518, guid: 578a6d1862d5fb340bba3ee9803cd254, type: 3}
-  _bulletSpawn: {fileID: 0}
 --- !u!114 &3045183110119231650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,7 +949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390c6e1db67ccf244ad01b5150958351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHealthSystem
-  _healthSlider: {fileID: 0}
+  _healthSlider: {fileID: 3509285046866002038, guid: 0c0b4c5bb4d46944f9939083793ac9d9, type: 3}
 --- !u!1 &5706567951575604930
 GameObject:
   m_ObjectHideFlags: 0
