@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private Vector2 _moveDirection;
-    private Rigidbody2D _rb;
-    
+    public Rigidbody2D _rb { get; private set; }
+
     [SerializeField] private float _speed;
 
     private void Awake()

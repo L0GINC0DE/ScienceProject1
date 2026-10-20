@@ -21,6 +21,7 @@ public class TurnManager : MonoBehaviour
     
     public Action OnPlusyTurn;
     public Action OnMinusyTurn;
+    public Action OnEnemyTurn;
 
     private event Action OnExecuteAction;
     private int selectedAction;
@@ -58,6 +59,13 @@ public class TurnManager : MonoBehaviour
     private void BeginEnemyTurn()
     {
         CurrentTurnState = TurnState.EnemyTurn;
+        OnEnemyTurn?.Invoke();
+    }
+
+    public void CompleteEnemyTurn()
+    {
+        if (CurrentTurnState != TurnState.EnemyTurn) return;
+        BeginPlayerTurn();
     }
 
     private void PlusyTurn()
@@ -90,7 +98,6 @@ public class TurnManager : MonoBehaviour
     public void CompleteAction()
     {
         if (CurrentTurnState != TurnState.Waiting) return;
-        
         BeginEnemyTurn();
     }
 }

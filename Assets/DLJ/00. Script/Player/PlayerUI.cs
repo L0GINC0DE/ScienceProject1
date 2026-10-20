@@ -40,14 +40,14 @@ public class PlayerUI : MonoBehaviour
 
         if (CurrentPlayerUI == null) return;
         
-        CurrentPlayerUI.transform.DOLocalMoveY(CurrentPlayerUI.transform.position.y - 65f, 0.18f).SetEase(easeCurve);
+        CurrentPlayerUI.transform.DOLocalMoveY(CurrentPlayerUI.transform.position.y - 170f, 0.18f).SetEase(easeCurve);
     }
 
     private void DownUI()
     {
         if (CurrentPlayerUI == null) return;
         
-        CurrentPlayerUI.transform.DOLocalMoveY(CurrentPlayerUI.transform.position.y - 120f, 0.18f).SetEase(easeCurve);
+        CurrentPlayerUI.transform.DOLocalMoveY(CurrentPlayerUI.transform.position.y - 255f, 0.18f).SetEase(easeCurve);
     }
     
     private void RefreshCurrentUI()

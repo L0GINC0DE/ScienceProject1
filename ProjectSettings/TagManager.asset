@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Particle
+    uniqueID: 998122079
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
@@ -49,6 +52,9 @@ TagManager:
     locked: 0
   - name: IngamePlayer
     uniqueID: 4108921357
+    locked: 0
+  - name: Boss
+    uniqueID: 3412623063
     locked: 0
   m_RenderingLayers:
   - Default
