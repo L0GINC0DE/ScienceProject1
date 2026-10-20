@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class AbstractHealthSystem:MonoBehaviour
+public abstract class AbstractHealthSystem : MonoBehaviour
 {
     private int _health = 100;
     public int Health
@@ -17,7 +17,8 @@ public abstract class AbstractHealthSystem:MonoBehaviour
             }
         } 
     }
-    public Action<int>OnDamaged;
+
+    public Action<int> OnDamaged;
     public Action<int> OnHeal;
     public Action OnDead;
 

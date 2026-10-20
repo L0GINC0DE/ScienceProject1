@@ -11,4 +11,5 @@ public class BeamPaa : MonoBehaviour
          _playerHealth.OnDamaged.Invoke(_damage);
       }
    }
+   
 }
