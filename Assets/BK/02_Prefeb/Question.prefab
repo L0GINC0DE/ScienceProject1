@@ -65,9 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Q. \uC804\uD558\uAC00 \uC774\uB3D9\uD558\uC5EC \uBB3C\uCCB4\uAC00 \uC804\uAE30\uC801
-    \uC131\uC9C8\uC744 \uB760\uAC8C \uB418\uB294 \uD604\uC0C1\uC744 \uB300\uC804\uC774\uB77C\uACE0
-    \uD55C\uB2E4."
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e7d73bc3043ba54ab0027e0b215ba60, type: 2}
   m_sharedMaterial: {fileID: 5232800282942878005, guid: 6e7d73bc3043ba54ab0027e0b215ba60, type: 2}

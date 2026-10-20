@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 7302359076916328745}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 762.2496, y: 959.7564, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,13 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f729f92d4eaae7c4e86d50c1b96040f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QuizPatton
-  _beforBoss: {fileID: 5364226937251621410, guid: 900a05f504146ba43859363ef87076be, type: 3}
-  _textUI: {fileID: 1421013016967578541, guid: e99706cab0f92b2409e0089ac324ca75, type: 3}
-  _oBtton: {fileID: 2518695305754434684, guid: 080c380366b2d0b40b602a29cdf1768e, type: 3}
-  _xBtton: {fileID: 118702586581205457, guid: a8945b29e677690418dc13efd389807b, type: 3}
-  _player1Health: {fileID: 5163704044413279439, guid: 3ff30a1bed7aaa24a852f36a7d052d5d, type: 3}
-  _player2Health: {fileID: 8730487107916961102, guid: ea1b4b311d5588447ba8969ce6ac6d48, type: 3}
-  _bossHealthSystem: {fileID: 3045183110119231650, guid: 900a05f504146ba43859363ef87076be, type: 3}
+  _uiPrefab: {fileID: 7000000000000000001, guid: 0d20380a87c20af4a859f72293793895, type: 3}
+  _quizVisualPrefab: {fileID: 3871729224631683675, guid: 853ae28b80d6cd242be575b4e43868df, type: 3}
+  _beforBoss: {fileID: 0}
+  _player1Health: {fileID: 0}
+  _player2Health: {fileID: 0}
+  _bossHealthSystem: {fileID: 0}
   questions:
   - "Q. \uC804\uD558\uAC00 \uC774\uB3D9\uD558\uC5EC \uBB3C\uCCB4\uAC00 \uC804\uAE30\uC801
     \uC131\uC9C8\uC744 \uB760\uAC8C \uB418\uB294 \uD604\uC0C1\uC744 \uB300\uC804\uC774\uB77C\uACE0
