@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b735a69801d92a4c932605b04441b68, type: 3}
   m_Name: BossPatternSO
   m_EditorClassIdentifier: Assembly-CSharp::BossPatternSO
-  patternPrefab: {fileID: 7720217448567758238, guid: e9412ce5ad078284ca81b6e2fb539816, type: 3}
-  areaSize: {x: 0.32, y: 1}
-  duration: 15
+  patternPrefab: {fileID: 7814210420847714671, guid: 9e269a9723d7d114b889b14f99cff0ee, type: 3}
+  areaSize: {x: 0, y: 0}
+  duration: 5
