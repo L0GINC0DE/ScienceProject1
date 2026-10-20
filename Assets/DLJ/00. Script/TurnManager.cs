@@ -22,9 +22,11 @@ public class TurnManager : MonoBehaviour
     public Action OnPlusyTurn;
     public Action OnMinusyTurn;
     public Action OnEnemyTurn;
+    public Action OnPlayerTurnStarted;
 
     private event Action OnExecuteAction;
     private int selectedAction;
+    private PlayerHealth[] players;
 
     private void Awake()
     {
@@ -34,6 +36,8 @@ public class TurnManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+
+        players = FindObjectsByType<PlayerHealth>(FindObjectsInactive.Include, FindObjectsSortMode.None);
     }
 
     private void Start()
@@ -43,23 +47,21 @@ public class TurnManager : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.jKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.jKey.wasPressedThisFrame)
         {
-            BeginPlayerTurn();
+            //BeginPlayerTurn();
         }
     }
 
     private void BeginPlayerTurn()
     {
-        CurrentTurnState = TurnState.PlusyTurn;
-        PlusyTurn();
-        
-    }
-
-    private void BeginEnemyTurn()
-    {
-        CurrentTurnState = TurnState.EnemyTurn;
-        OnEnemyTurn?.Invoke();
+        OnExecuteAction = null;
+        selectedAction = 0;
+        CurrentTurnState = IsPlayerAlive(PlayerTag.Plusy) ? TurnState.PlusyTurn
+            : IsPlayerAlive(PlayerTag.Minusy) ? TurnState.MinusyTurn : TurnState.Waiting;
+        OnPlayerTurnStarted?.Invoke();
+        if (CurrentTurnState == TurnState.PlusyTurn) OnPlusyTurn?.Invoke();
+        else if (CurrentTurnState == TurnState.MinusyTurn) OnMinusyTurn?.Invoke();
     }
 
     public void CompleteEnemyTurn()
@@ -68,36 +70,71 @@ public class TurnManager : MonoBehaviour
         BeginPlayerTurn();
     }
 
-    private void PlusyTurn()
-    {
-        OnPlusyTurn?.Invoke();
-    }
-    
     public void MinusyTurn()
     {
+        if (!IsPlayerAlive(PlayerTag.Minusy))
+        {
+            ExecuteAction();
+            return;
+        }
         CurrentTurnState = TurnState.MinusyTurn;
         OnMinusyTurn?.Invoke();
     }
 
     public void ReserveAction(PlayerMachine machine, PlayerState state)
     {
-        OnExecuteAction += () => machine.Activate(state);
+        if (machine == null || (CurrentTurnState != TurnState.PlusyTurn &&
+            CurrentTurnState != TurnState.MinusyTurn)) return;
+        PlayerTag tag = CurrentTurnState == TurnState.PlusyTurn ? PlayerTag.Plusy : PlayerTag.Minusy;
+        if (!IsPlayerAlive(tag)) return;
+        OnExecuteAction += () =>
+        {
+            if (IsPlayerAlive(tag)) machine.Activate(state);
+        };
         ++selectedAction;
     }
 
     public void ExecuteAction()
     {
-        if (selectedAction != 2) return;
+        int livingPlayers = (IsPlayerAlive(PlayerTag.Plusy) ? 1 : 0) + (IsPlayerAlive(PlayerTag.Minusy) ? 1 : 0);
+        if (livingPlayers == 0 || selectedAction < livingPlayers) return;
         CurrentTurnState = TurnState.Waiting;
-        OnExecuteAction?.Invoke();
-        
+        Action actions = OnExecuteAction;
         OnExecuteAction = null;
         selectedAction = 0;
+        actions?.Invoke();
     }
     
     public void CompleteAction()
     {
         if (CurrentTurnState != TurnState.Waiting) return;
-        BeginEnemyTurn();
+        if (!IsPlayerAlive(PlayerTag.Plusy) && !IsPlayerAlive(PlayerTag.Minusy)) return;
+        CurrentTurnState = TurnState.EnemyTurn;
+        OnEnemyTurn?.Invoke();
+    }
+
+    public bool IsPlayerAlive(PlayerTag tag)
+    {
+        if (players == null) return false;
+        foreach (PlayerHealth player in players)
+            if (player != null && player.Tag == tag && player.isActiveAndEnabled && player.Health > 0)
+                return true;
+        return false;
+    }
+
+    public void NotifyPlayerDefeated(PlayerTag tag)
+    {
+        if (!IsPlayerAlive(PlayerTag.Plusy) && !IsPlayerAlive(PlayerTag.Minusy))
+        {
+            BossPattonManger manager = BossPattonManger.instance;
+            if (CurrentTurnState == TurnState.EnemyTurn && manager != null && manager.ActivePattern != null)
+                manager.CompleteCurrentPattern(manager.ActivePattern);
+            else
+                BeginPlayerTurn();
+            return;
+        }
+
+        if (CurrentTurnState == TurnState.PlusyTurn && tag == PlayerTag.Plusy) MinusyTurn();
+        else if (CurrentTurnState == TurnState.MinusyTurn && tag == PlayerTag.Minusy) ExecuteAction();
     }
 }

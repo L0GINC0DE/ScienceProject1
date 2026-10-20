@@ -35,6 +35,12 @@ public class PlayerAttack : PlayerButton, IButtonAction
         attackSequence = DOTween.Sequence();
         attackSequence.Append(player.transform.DOJump(target.transform.position, 2.3f, 1, 1.2f)).SetEase(Ease.OutSine)
             .AppendInterval(0.1f)
+            .AppendCallback(() =>
+            {
+                var bossHealth = target.GetComponent<BossHealthSystem>();
+                if (bossHealth != null)
+                    bossHealth.Damage(10);
+            })
             .Append(player.transform.DOJump(basePos, 1.3f, 1, 0.9f)).SetEase(Ease.OutCirc)
             .JoinCallback(() => anim.SetBoolAnimation("Attack", false))
             .AppendCallback(() => TurnManager.Instance.CompleteAction());

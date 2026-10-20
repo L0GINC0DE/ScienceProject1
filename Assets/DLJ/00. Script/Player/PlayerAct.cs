@@ -19,6 +19,10 @@ public class PlayerAct : PlayerButton, IButtonAction
     private void Act()
     {
         PlayerAnimation anim = player.GetComponentInChildren<PlayerAnimation>();
+        if (player.TryGetComponent(out PlayerHealth playerHealth))
+        {
+            playerHealth.Heal(20);
+        }
         anim.SetTriggerAnimation("Act");
     }
 }

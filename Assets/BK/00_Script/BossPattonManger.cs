@@ -66,17 +66,20 @@ public class BossPattonManger : MonoBehaviour
 
         if (bosses.Count == 0)
         {
+            Debug.LogError("BossPattonManger: Bosses 목록이 비어 있어 적 턴을 종료합니다. 실행할 SO를 넣어 주세요.", this);
             patternRoutine = StartCoroutine(ReturnToPlayerTurn());
             return;
         }
 
         NextPatternIndex %= bosses.Count;
+        int patternIndex = NextPatternIndex;
         BossPatternSO pattern = bosses[NextPatternIndex];
         NextPatternIndex = (NextPatternIndex + 1) % bosses.Count;
 
         if (pattern == null || pattern.patternPrefab == null ||
             !pattern.patternPrefab.gameObject.activeSelf || !pattern.patternPrefab.enabled)
         {
+            string patternName = pattern != null ? pattern.name : "SO 없음";
             patternRoutine = StartCoroutine(ReturnToPlayerTurn());
             return;
         }

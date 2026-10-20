@@ -22,6 +22,9 @@ public class ButtonSelector : MonoBehaviour
             TurnManager.Instance.CurrentTurnState != TurnState.MinusyTurn) return;
         
         currentIndex = TurnManager.Instance.CurrentTurnState == TurnState.PlusyTurn ? 0 : 1;
+
+        PlayerTag currentTag = currentIndex == 0 ? PlayerTag.Plusy : PlayerTag.Minusy;
+        if (!TurnManager.Instance.IsPlayerAlive(currentTag)) return;
         
         List<GameObject> currentButtons = currentIndex == 0 ? plusyButtons : minusyButtons;
         
@@ -47,7 +50,7 @@ public class ButtonSelector : MonoBehaviour
         
         machine.ChangeState(actionIndex == 0 ? PlayerState.Attack : PlayerState.Act);
         
-        if (Keyboard.current.enterKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame)
         {
             TurnManager.Instance.ReserveAction(machine, machine.CurrentState);
             

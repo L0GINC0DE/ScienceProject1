@@ -56,5 +56,8 @@ TagManager:
   - name: Boss
     uniqueID: 3412623063
     locked: 0
+  - name: Pattern
+    uniqueID: 2325468209
+    locked: 0
   m_RenderingLayers:
   - Default
